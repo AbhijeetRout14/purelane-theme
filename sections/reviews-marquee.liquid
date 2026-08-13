@@ -1,0 +1,205 @@
+{% comment %}
+  Purelane Reviews Marquee
+{% endcomment %}
+
+<div class="pl-scope">
+  <section class="pl-sec" id="reviews" data-section-id="{{ section.id }}">
+
+    <div class="pl-wrap">
+      <div class="pl-revhead pl-rv">
+
+        {% if section.settings.kicker != blank %}
+          <span class="pl-kicker">
+            {{ section.settings.kicker }}
+          </span>
+        {% endif %}
+
+        {% if section.settings.rating != blank %}
+          <span class="pl-agg">
+            <span class="pl-st" aria-hidden="true">
+              <span class="pl-star">★</span>
+              <span class="pl-star">★</span>
+              <span class="pl-star">★</span>
+              <span class="pl-star">★</span>
+              <span class="pl-star">★</span>
+            </span>
+
+            <b>{{ section.settings.rating }}</b>
+            from {{ section.settings.review_count_label }}
+          </span>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div
+      class="pl-revrail pl-rv"
+      data-pl-revrail
+      aria-label="Customer reviews"
+    >
+
+      <div class="pl-revtrack" data-pl-revtrack>
+
+        {% for block in section.blocks %}
+
+          {% if block.type == 'review' %}
+
+            {% assign review = block.settings.review_ref %}
+
+            {% if review != blank %}
+
+              <article
+                class="pl-glass-2 pl-rcard"
+                {{ block.shopify_attributes }}
+              >
+
+                <!-- Stars -->
+                <div class="pl-card-stars" aria-label="5 out of 5 stars">
+                  <span>★</span>
+                  <span>★</span>
+                  <span>★</span>
+                  <span>★</span>
+                  <span>★</span>
+                </div>
+
+                <!-- Review title -->
+                {% if review.title != blank %}
+                  <h3>{{ review.title }}</h3>
+                {% endif %}
+
+                <!-- Review quote -->
+                {% if review.quote != blank %}
+                  <p>{{ review.quote }}</p>
+                {% endif %}
+
+                <!-- Author -->
+                <div class="pl-who">
+
+                  <span class="pl-check" aria-hidden="true">
+                    ✓
+                  </span>
+
+                  {% if review.author_name != blank %}
+                    <b>{{ review.author_name }}</b>
+                  {% endif %}
+
+                  {% if review.author_context != blank %}
+                    <span>· {{ review.author_context }}</span>
+                  {% endif %}
+
+                </div>
+
+              </article>
+
+            {% endif %}
+
+          {% endif %}
+
+        {% endfor %}
+
+      </div>
+    </div>
+
+  </section>
+</div>
+
+
+<style>
+  /* Review stars */
+  .pl-card-stars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 18px;
+    line-height: 1;
+  }
+
+  .pl-card-stars span {
+    display: inline-block;
+    font-size: 22px;
+    line-height: 1;
+    width: auto;
+    height: auto;
+  }
+
+  /* Header stars */
+  .pl-agg .pl-st {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    margin-right: 8px;
+  }
+
+  .pl-agg .pl-star {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  /* Author checkmark */
+  .pl-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-radius: 50%;
+    font-size: 16px;
+    line-height: 1;
+    margin-right: 8px;
+  }
+
+  .pl-who {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+</style>
+
+
+{% schema %}
+{
+  "name": "Reviews marquee",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "That's what they said"
+    },
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Aggregate rating",
+      "default": "4.8"
+    },
+    {
+      "type": "text",
+      "id": "review_count_label",
+      "label": "Review count label",
+      "default": "8,000+ reviews"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "metaobject",
+          "id": "review_ref",
+          "metaobject_type": "review",
+          "label": "Review"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Reviews marquee"
+    }
+  ]
+}
+{% endschema %}

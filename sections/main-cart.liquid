@@ -1,0 +1,141 @@
+<div class="pl-scope">
+  <section class="pl-sec pl-cart" data-section-id="{{ section.id }}">
+    <div class="pl-wrap">
+
+      <div class="pl-cart-head">
+        <span class="pl-kicker">YOUR CART</span>
+        <h1>Shopping Cart</h1>
+      </div>
+
+      {% if cart.item_count == 0 %}
+
+        <div class="pl-cart-empty">
+          <h2>Your cart is empty</h2>
+          <p>Looks like you haven't added anything yet.</p>
+
+          <a href="{{ routes.all_products_collection_url }}" class="pl-btn">
+            SHOP PRODUCTS →
+          </a>
+        </div>
+
+      {% else %}
+
+        <form action="{{ routes.cart_url }}" method="post" id="cart-form">
+
+          <div class="pl-cart-items">
+
+            {% for item in cart.items %}
+
+              <article class="pl-cart-item">
+
+                <div class="pl-cart-image">
+                  {% if item.image %}
+                    <a href="{{ item.url }}">
+                      {{ item.image
+                        | image_url: width: 240
+                        | image_tag:
+                          loading: 'lazy',
+                          alt: item.title
+                      }}
+                    </a>
+                  {% endif %}
+                </div>
+
+                <div class="pl-cart-info">
+
+                  <h2>
+                    <a href="{{ item.url }}">
+                      {{ item.product.title }}
+                    </a>
+                  </h2>
+
+                  {% unless item.product.has_only_default_variant %}
+                    <p class="pl-cart-variant">
+                      {{ item.variant.title }}
+                    </p>
+                  {% endunless %}
+
+                  <div class="pl-cart-price">
+                    {{ item.final_price | money }}
+                  </div>
+
+                  <div class="pl-cart-qty">
+                    <label for="quantity-{{ item.key }}">
+                      Quantity
+                    </label>
+
+                    <input
+                      id="quantity-{{ item.key }}"
+                      type="number"
+                      name="updates[]"
+                      value="{{ item.quantity }}"
+                      min="0"
+                    >
+                  </div>
+
+                  <a
+                    href="{{ item.url_to_remove }}"
+                    class="pl-cart-remove"
+                  >
+                    Remove
+                  </a>
+
+                </div>
+
+                <div class="pl-cart-line-total">
+                  {{ item.final_line_price | money }}
+                </div>
+
+              </article>
+
+            {% endfor %}
+
+          </div>
+
+          <div class="pl-cart-bottom">
+
+            <button
+              type="submit"
+              name="update"
+              class="pl-btn pl-btn-secondary"
+            >
+              UPDATE CART
+            </button>
+
+            <div class="pl-cart-summary">
+
+              <div class="pl-cart-subtotal">
+                <span>Subtotal</span>
+                <strong>{{ cart.total_price | money }}</strong>
+              </div>
+
+              <p class="pl-cart-note">
+                Taxes and shipping calculated at checkout.
+              </p>
+
+              <button
+                type="submit"
+                name="checkout"
+                class="pl-btn"
+              >
+                CHECKOUT →
+              </button>
+
+            </div>
+
+          </div>
+
+        </form>
+
+      {% endif %}
+
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Main cart",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,117 @@
+{% comment %}
+  sections/hero.liquid
+  Static hero image ships by default (fast, no layout shift, no JS dependency).
+  If a second or third product block is added, JS progressively upgrades it
+  into the 1→2→3 rotating stage from the prototype — see assets/purelane-hero.js.
+{% endcomment %}
+
+<div class="pl-scope">
+<section class="pl-hero" data-pl-hero data-section-id="{{ section.id }}">
+  <div class="pl-hero-grid pl-wrap">
+
+    <div class="pl-hero-copy">
+      <h1 class="pl-d1 pl-rv">
+        {{ section.settings.heading_line_1 }}<br>
+        {{ section.settings.heading_line_2 }}<br>
+        <span class="pl-lime">{{ section.settings.heading_line_3 }}</span>
+      </h1>
+
+      <div class="pl-rule pl-rv" style="margin:0 0 20px;justify-content:flex-start">
+        <i></i>{% render 'icon', name: 'leaf' %}<i></i>
+      </div>
+
+      {% if section.settings.lede != blank %}
+        <p class="pl-lede pl-rv">{{ section.settings.lede }}</p>
+      {% endif %}
+
+      <div class="pl-hero-cta pl-rv">
+        {% if section.settings.primary_cta_text != blank %}
+          <a class="pl-btn pl-btn-primary" href="{{ section.settings.primary_cta_link | default: '#' }}">
+            {{ section.settings.primary_cta_text }}
+            {% render 'icon', name: 'arrow-right' %}
+          </a>
+        {% endif %}
+        {% if section.settings.secondary_cta_text != blank %}
+          <a class="pl-btn pl-btn-ghost" href="{{ section.settings.secondary_cta_link | default: '#' }}">
+            {{ section.settings.secondary_cta_text }}
+          </a>
+        {% endif %}
+      </div>
+
+      {% if section.blocks.size > 0 %}
+        <div class="pl-badgestrip pl-rv">
+          {% for block in section.blocks %}
+            {% if block.type == 'badge' %}
+              <div class="pl-glass-2" {{ block.shopify_attributes }}>
+                {% render 'icon', name: block.settings.icon %}
+                {{ block.settings.label }}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="pl-hero-visual">
+      {% if section.settings.hero_image %}
+        <img
+          src="{{ section.settings.hero_image | image_url: width: 900 }}"
+          srcset="{{ section.settings.hero_image | image_url: width: 450 }} 450w,
+                  {{ section.settings.hero_image | image_url: width: 900 }} 900w"
+          sizes="(min-width: 900px) 480px, 80vw"
+          alt="{{ section.settings.hero_image.alt | default: section.settings.heading_line_1 | escape }}"
+          width="{{ section.settings.hero_image.width }}"
+          height="{{ section.settings.hero_image.height }}"
+          fetchpriority="high"
+          style="width:min(90%,480px);margin:0 auto;filter:drop-shadow(0 34px 54px rgba(2,20,19,.6))"
+        >
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+</div>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "text", "id": "heading_line_1", "label": "Heading — line 1", "default": "Clean" },
+    { "type": "text", "id": "heading_line_2", "label": "Heading — line 2", "default": "That" },
+    { "type": "text", "id": "heading_line_3", "label": "Heading — line 3 (accent colour)", "default": "Lasts" },
+    { "type": "textarea", "id": "lede", "label": "Supporting text", "default": "Homecare that works on the toughest grime, made from plants." },
+    { "type": "text", "id": "primary_cta_text", "label": "Primary button label", "default": "Shop now" },
+    { "type": "url", "id": "primary_cta_link", "label": "Primary button link" },
+    { "type": "text", "id": "secondary_cta_text", "label": "Secondary button label", "default": "How it works" },
+    { "type": "url", "id": "secondary_cta_link", "label": "Secondary button link" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero product image" }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Promise badge",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "leaf",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "sparkle", "label": "Sparkle" }
+          ]
+        },
+        { "type": "text", "id": "label", "label": "Label", "default": "Plant powered" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        { "type": "badge", "settings": { "icon": "leaf", "label": "Plant powered" } },
+        { "type": "badge", "settings": { "icon": "shield", "label": "Kids & pet safe" } },
+        { "type": "badge", "settings": { "icon": "sparkle", "label": "Zero harsh chem" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

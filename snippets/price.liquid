@@ -1,0 +1,20 @@
+{% comment %}
+  snippets/price.liquid
+  Accepts: product (object, required)
+  Renders price / compare-at-price / computed discount %, all from real
+  Shopify data — nothing here is typed in by a merchant.
+{% endcomment %}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+<div class="pl-pr">
+  <strong>{{ current_variant.price | money }}</strong>
+  {% if current_variant.compare_at_price > current_variant.price %}
+    <s>{{ current_variant.compare_at_price | money }}</s>
+    {%- assign discount = current_variant.compare_at_price
+        | minus: current_variant.price
+        | times: 100.0
+        | divided_by: current_variant.compare_at_price
+        | round -%}
+    <em>{{ discount }}% off</em>
+  {% endif %}
+</div>

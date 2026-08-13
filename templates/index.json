@@ -1,0 +1,185 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "pl_hero": {
+      "type": "hero",
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "icon": "leaf",
+            "label": "Plant powered"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "icon": "shield",
+            "label": "Kids & pet safe"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "icon": "sparkle",
+            "label": "Zero harsh chem"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3"
+      ],
+      "settings": {
+        "heading_line_1": "Clean",
+        "heading_line_2": "That",
+        "heading_line_3": "Lasts",
+        "lede": "Homecare that works on the toughest grime, made from plants. Kind to your home, your family and the world outside it.",
+        "primary_cta_text": "Shop now",
+        "primary_cta_link": "#shop",
+        "secondary_cta_text": "How it works",
+        "secondary_cta_link": "#how"
+      }
+    },
+    "pl_reviews": {
+      "type": "reviews-marquee",
+      "blocks": {
+        "review_VVk6bp": {
+          "type": "review",
+          "settings": {
+            "review_ref": "hihghly-recommended"
+          }
+        },
+        "review_ftFnmA": {
+          "type": "review",
+          "settings": {
+            "review_ref": "worth-the-money"
+          }
+        },
+        "review_yqzYmQ": {
+          "type": "review",
+          "settings": {
+            "review_ref": "kitchen-feels-cleaner"
+          }
+        },
+        "review_7KRkBx": {
+          "type": "review",
+          "settings": {
+            "review_ref": "works-brilliantly"
+          }
+        },
+        "review_R9HcFE": {
+          "type": "review",
+          "settings": {
+            "review_ref": "great-for-everyday-cleaning"
+          }
+        }
+      },
+      "block_order": [
+        "review_VVk6bp",
+        "review_ftFnmA",
+        "review_yqzYmQ",
+        "review_7KRkBx",
+        "review_R9HcFE"
+      ],
+      "settings": {
+        "kicker": "That's what they said",
+        "rating": "4.8",
+        "review_count_label": "8,000+ reviews"
+      }
+    },
+    "pl_combos": {
+      "type": "combos",
+      "settings": {
+        "kicker": "Pre-built to save you money",
+        "heading": "Best selling combos",
+        "lede": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own.",
+        "bundle_anchor": "#bundles",
+        "rail_note": "Tapping \"Shop bundle\" opens the bundle picker with these products already added. You can still swap anything before you pay."
+      }
+    },
+    "pl_bundles": {
+      "type": "bundles",
+      "blocks": {
+        "tier_1": {
+          "type": "tier",
+          "settings": {
+            "tag": "Starter",
+            "product_count": 2,
+            "price": "₹349",
+            "compare_price": "₹598",
+            "per_product_note": "Flat ₹174 per product",
+            "features": "Pick any two products\nFree shipping across India",
+            "cta_text": "Build this box",
+            "cta_link": "#shop",
+            "featured": false
+          }
+        },
+        "tier_2": {
+          "type": "tier",
+          "settings": {
+            "tag": "Most popular",
+            "product_count": 3,
+            "price": "₹499",
+            "compare_price": "₹897",
+            "per_product_note": "Flat ₹166 per product",
+            "features": "Pick any three products\nCovers kitchen and laundry\nFree shipping across India",
+            "cta_text": "Build this box",
+            "cta_link": "#shop",
+            "featured": true
+          }
+        },
+        "tier_3": {
+          "type": "tier",
+          "settings": {
+            "tag": "Whole home",
+            "product_count": 5,
+            "price": "₹799",
+            "compare_price": "₹1,495",
+            "per_product_note": "Flat ₹160 per product",
+            "features": "Pick any five products\nEvery room in one order\nFree shipping across India",
+            "cta_text": "Build this box",
+            "cta_link": "#shop",
+            "featured": false
+          }
+        }
+      },
+      "block_order": [
+        "tier_1",
+        "tier_2",
+        "tier_3"
+      ],
+      "settings": {
+        "kicker": "Build your bundle",
+        "heading": "One box. Every room.",
+        "lede": "Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way."
+      }
+    },
+    "shop_grid_yPPE7d": {
+      "type": "shop-grid",
+      "name": "Shop grid",
+      "settings": {
+        "kicker": "Bestsellers",
+        "heading": "Loved by 30,000 homes",
+        "collection": "bestsellers",
+        "product_limit": 8
+      }
+    }
+  },
+  "order": [
+    "pl_hero",
+    "pl_reviews",
+    "pl_combos",
+    "pl_bundles",
+    "shop_grid_yPPE7d"
+  ]
+}

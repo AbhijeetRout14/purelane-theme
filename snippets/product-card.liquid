@@ -1,0 +1,58 @@
+{% comment %}
+  snippets/product-card.liquid
+  Renders one product card. Used by sections/shop-grid.liquid.
+  Handles: sold out, missing image, long titles — all deliberately seeded
+  test cases per the assignment brief.
+
+  Accepts:
+    product     — product object (required)
+    badge_text  — string, optional (from product.metafields.custom.badge_label)
+    reveal_class — string, optional stagger class e.g. "pl-rv-d2"
+{% endcomment %}
+
+<article class="pl-glass pl-card pl-rv {{ reveal_class }}" data-pl-card>
+  <div class="pl-shot">
+    {% if badge_text != blank %}
+      <span class="pl-pill">{{ badge_text }}</span>
+    {% endif %}
+
+    {% if product.featured_media %}
+      {{ product.featured_media | image_url: width: 600 | image_tag:
+        loading: 'lazy',
+        widths: '150,300,450,600',
+        sizes: '(min-width: 860px) 260px, 45vw',
+        alt: product.featured_media.alt | default: product.title
+      }}
+    {% else %}
+      {% comment %} no native image on this product — solved with a labelled placeholder, not a broken <img> {% endcomment %}
+      <div class="pl-shot__empty" role="img" aria-label="{{ product.title | escape }} — image coming soon">
+        {% render 'icon', name: 'leaf' %}
+      </div>
+    {% endif %}
+  </div>
+
+  <h3>{{ product.title }}</h3>
+
+  {% if product.metafields.custom.rating != blank %}
+    <div class="pl-rate">
+      <b>★ {{ product.metafields.custom.rating }}</b>
+      {% if product.metafields.custom.review_count != blank %}
+        · {{ product.metafields.custom.review_count }} reviews
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% render 'price', product: product %}
+
+  {% if product.available %}
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+    {% form 'product', product, class: 'pl-card-form' %}
+      <input type="hidden" name="id" value="{{ current_variant.id }}">
+      <button type="submit" class="pl-btn pl-btn-ghost pl-btn-sm" {% if current_variant == nil %}disabled{% endif %}>
+        Add to cart
+      </button>
+    {% endform %}
+  {% else %}
+    <button class="pl-btn pl-btn-ghost pl-btn-sm" disabled aria-disabled="true">Sold out</button>
+  {% endif %}
+</article>
